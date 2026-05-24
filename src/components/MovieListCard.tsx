@@ -1,10 +1,13 @@
-import type { Movie } from "../types/movieTypes"
+import { useNavigate } from "react-router-dom"
+import type {MovieType } from "../types/movieTypes"
 
 
-function MovieListCard ({poster_path,title,vote_average}:Movie) {
+function MovieListCard ({poster_path,title,vote_average,id}:MovieType) {
+    const nav = useNavigate()
     return (
         <>
-        <div className="bg-zinc-900 rounded-xl overflow-hidden hover:scale-105 transition duration-300 cursor-pointer">
+        <div className="bg-zinc-900 rounded-xl overflow-hidden hover:scale-105 transition duration-300 cursor-pointer"
+        onClick={()=>nav(`detail/${id}`)}>
             <img
               src={`https://image.tmdb.org/t/p/w300${poster_path}`}
               className="w-full h-72"
