@@ -3,6 +3,7 @@ import { createBrowserRouter } from "react-router-dom";
 import Home from "../pages/Home";
 import Detail from "../pages/Detail";
 import Search from "../pages/Search";
+import Recent from "../pages/Recent";
 
 
 export const router = createBrowserRouter([{
@@ -15,5 +16,9 @@ export const router = createBrowserRouter([{
 {
     path: '/search'
     ,element: <Search/>
+},
+{
+    path: 'recent'
+    ,element: <Recent/>
 }
 ])
