@@ -2,12 +2,12 @@ import { useNavigate } from "react-router-dom";
 import type { MovieType } from "../types/movieTypes";
 import { useContext } from "react";
 import { RecentContext } from "../context/RecentContext";
+import { WishListContext } from "../context/WishlistContext";
 
 function MovieListCard({ poster_path, title, vote_average, id }: MovieType) {
   const nav = useNavigate();
-  const context = useContext(RecentContext);
-  if (!context) return null;
-  const { setRecentMovie } = context;
+  const {wishData} = useContext(WishListContext) !
+  const { setRecentMovie } = useContext(RecentContext)!
   function recentAdd() {
     setRecentMovie((prev) => {
       const filter = prev.filter((movie) => movie.id !== id);
@@ -19,12 +19,16 @@ function MovieListCard({ poster_path, title, vote_average, id }: MovieType) {
   return (
     <>
       <div
-        className="bg-zinc-900 rounded-xl overflow-hidden hover:scale-105 transition duration-300 cursor-pointer"
-        onClick={() => recentAdd()}
+        className="bg-zinc-900 rounded-xl overflow-hidden hover:scale-105 transition duration-300 cursor-pointer relative"
+        onClick={recentAdd}
       >
+        <div className="absolute top-2 right-2 text-xl rounded-full w-8 h-8 flex items-center justify-center">
+          {wishData.some((movie)=> movie.id === id) ? ' ❤️' : null}
+        </div>
+
         <img
           src={`https://image.tmdb.org/t/p/w300${poster_path}`}
-          className="w-full h-72"
+          className="w-full h-72 object-cover"
         />
 
         <div className="p-4">
