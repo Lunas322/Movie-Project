@@ -1,21 +1,21 @@
-import { useContext, useState } from "react"
-import Header from "../components/Header"
-import MovieListContainer from "../components/MovieListContainer"
-import { RecentContext } from "../context/RecentContext"
+import { useContext } from "react";
+import Header from "../components/Header";
+import MovieListContainer from "../components/MovieListContainer";
+import { RecentContext } from "../context/RecentContext";
+import RecentEmpty from "../components/RecentEmpty";
 
-function Recent () {
-    const context = useContext(RecentContext)
-    const [page, setpage] = useState(1)
+function Recent() {
+  const { recentMovie } = useContext(RecentContext)!;
 
-    if (!context) return null
-    const {recentMovie} = context
-    return(
-        <>
-        <Header/>
+  return (
+    <>
+      <Header />
       <div className="w-full min-h-screen bg-black text-white py-10">
-        <MovieListContainer movieData={recentMovie} setPage={setpage}/>
-        </div>
-        </>
-    )
+        {recentMovie.length ? (
+          <MovieListContainer movieData={recentMovie} />
+        ) : <RecentEmpty/>}
+      </div>
+    </>
+  );
 }
-export default Recent
+export default Recent;

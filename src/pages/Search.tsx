@@ -1,21 +1,26 @@
 import React, { useEffect, useState } from "react";
 import Header from "../components/Header";
 import MovieListContainer from "../components/MovieListContainer";
-import { searchMovies } from "../api/search";
 import type { MovieType } from "../types/movieTypes";
+import { searchMovies } from "../api/movieSearch";
+import SearchEmpty from "../components/SearchEmpty";
+import Loading from "../common/Loading";
 
 function Search() {
   const [movieTitle, setMovieTitle] = useState("");
   const [searchData, setSearchData] = useState<MovieType[]>([]);
-  const [page, setPage] = useState(1);
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
     async function getSearchData() {
       try {
+        setLoading(true);
         const response = await searchMovies(movieTitle);
         setSearchData(response);
       } catch (error) {
         console.log(error);
+      } finally {
+        setLoading(false);
       }
     }
     getSearchData();
@@ -25,9 +30,6 @@ function Search() {
     setMovieTitle(e.target.value);
   }
 
-  useEffect(() => {
-    console.log(searchData);
-  }, [searchData]);
   return (
     <>
       <div className="w-full min-h-screen bg-black text-white">
@@ -43,8 +45,13 @@ function Search() {
               className="w-full px-4 py-3 rounded-lg bg-zinc-900 text-white outline-none focus:ring-2 focus:ring-red-500"
             />
           </div>
-
-          <MovieListContainer movieData={searchData} setPage={setPage} />
+          {loading ? (
+            <Loading />
+          ) : searchData.length > 0 ? (
+            <MovieListContainer movieData={searchData}  />
+          ) : (
+            <SearchEmpty />
+          )}
         </div>
       </div>
     </>

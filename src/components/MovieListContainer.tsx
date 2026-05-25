@@ -1,13 +1,12 @@
 import type { MovieType } from "../types/movieTypes";
 import MovieListCard from "./MovieListCard";
-import { pageCount } from "../util/pageCount";
 
 type Props = {
   movieData: MovieType[];
-  setPage: React.Dispatch<React.SetStateAction<number>>;
+  onMore?: ()=> void
 };
 
-function MovieListContainer({ movieData, setPage }: Props) {
+function MovieListContainer({ movieData, onMore }: Props) {
   return (
     <div className="w-full flex flex-col items-center gap-10">
       <div className="grid grid-cols-2 sm:grid-cols-3 md:grid-cols-4 lg:grid-cols-5 gap-6 w-full justify-items-center">
@@ -27,7 +26,7 @@ function MovieListContainer({ movieData, setPage }: Props) {
 
       {movieData?.length > 10 && (
         <button
-          onClick={() => pageCount({ setPage })}
+          onClick={onMore}
           className="w-90 h-14 bg-white rounded-2xl border border-gray-300 text-gray-800 font-medium shadow-sm hover:bg-gray-300 transition"
         >
           더보기
