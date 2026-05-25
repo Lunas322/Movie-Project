@@ -24,13 +24,6 @@ function Header() {
 
           <li
             className="cursor-pointer hover:text-red-500 transition duration-200"
-            onClick={() => nav("/popular")}
-          >
-            인기 영화
-          </li>
-
-          <li
-            className="cursor-pointer hover:text-red-500 transition duration-200"
             onClick={() => nav("/wishlist")}
           >
             찜 목록
@@ -52,7 +45,7 @@ function Header() {
         </ul>
       </div>
     </div>
-  )
+  );
 }
 
 export default Header;
